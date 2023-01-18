@@ -9,7 +9,7 @@ c_input = c_mri_bic_SS_12;   %single slice C13 image (low-res)
 TargSize = 192;  % target reconstruction matrix size in X-Y plane
 TargDim = [TargSize TargSize size(h_HR, 3)];
 K = 3;  %number of segmetation tissue
-N = 2;  %patch size (actual patch  = (N*2)+1)
+N = 5;  %patch size (actual patch  = (N*2)+1)
 L_Vi = N*2+1; %length of search volume (Vi)
 SS_expan_L  = N+N; % length of expandsion in X, Y directions
 max_patch_z = floor((size(h_HR,3)-1)/2); %maximum patch size in Z direction
@@ -78,11 +78,11 @@ figure; montage(c_init, 'size', [1,size(c_init,3)], 'DisplayRange', ...
     [disrange_mi, disrange_mx]); colorbar; colormap jet; title('initial multiple-slice 13C');
 
 %% Preparation for Iterative super-res algorithm (expand space)
-p_1 = expand_space(down_p, K, N, Nz, SS_expan_L, SS_expan_Lz); %Probability maps (segmented structural images)
+p_1 = Fn_expand_space(down_p, K, N, Nz, SS_expan_L, SS_expan_Lz); %Probability maps (segmented structural images)
 p_1 = single(p_1);
-h_low_1 = expand_space(down_H, K, N, Nz, SS_expan_L, SS_expan_Lz); %Down-sampled structural images
+h_low_1 = Fn_expand_space(down_H, K, N, Nz, SS_expan_L, SS_expan_Lz); %Down-sampled structural images
 h_low_1 = single(h_low_1);
-input_1 = expand_space(c_init, K, N, Nz, SS_expan_L, SS_expan_Lz); %Initial guess of 13C images
+input_1 = Fn_expand_space(c_init, K, N, Nz, SS_expan_L, SS_expan_Lz); %Initial guess of 13C images
 input_1 = single(input_1);
 
 %% initial step of reconstruction: calculation the weight matrix & Mean Correction
