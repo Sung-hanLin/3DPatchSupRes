@@ -173,9 +173,9 @@ c_super_res =  input_2(1+SS_expan_L:TargDim(1)+SS_expan_L,...
     1+SS_expan_Lz:TargDim(3)+SS_expan_Lz);
 
 %% Display and Save results 
-save( filename,'c_super_res','error', 'c_init', 'iteration', 'K', 'N', 'Nz', 'input_1', 'input_2', ...
-    'weighting_patch_cal_time', 'shift_x', 'shift_y');
 poolobj = gcp('nocreate'); delete(poolobj);
+save( filename,'c_super_res','error', 'c_init', 'iteration', 'K', 'N', 'Nz', 'input_1', 'input_2', ...
+    'weighting_patch_cal_time', 'shift_x', 'shift_y','c_low','c_init_1','down_H');
 
 DisRag_mx_SS = max(c_low, [], 'all'); DisRag_mi_SS = min(c_low, [], 'all');
 DisRag_mx_3D = max(c_init, [], 'all'); DisRag_mi_3D = min(c_init, [], 'all');
