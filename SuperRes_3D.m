@@ -9,7 +9,7 @@ c_input = c_mri_bic_SS_12;   %single slice C13 image (low-res)
 TargSize = 192;  % target reconstruction matrix size in X-Y plane
 TargDim = [TargSize TargSize size(h_HR, 3)];
 K = 3;  %number of segmetation tissue
-N = 5;  %patch size (actual patch  = (N*2)+1)
+N = 11;  %patch size (actual patch  = (N*2)+1)
 L_Vi = N*2+1; %length of search volume (Vi)
 SS_expan_L  = N+N; % length of expandsion in X, Y directions
 max_patch_z = floor((size(h_HR,3)-1)/2); %maximum patch size in Z direction
@@ -173,9 +173,9 @@ c_super_res =  input_2(1+SS_expan_L:TargDim(1)+SS_expan_L,...
     1+SS_expan_Lz:TargDim(3)+SS_expan_Lz);
 
 %% Display and Save results 
-poolobj = gcp('nocreate'); delete(poolobj);
 save( filename,'c_super_res','error', 'c_init', 'iteration', 'K', 'N', 'Nz', 'input_1', 'input_2', ...
-    'weighting_patch_cal_time', 'shift_x', 'shift_y','c_low','c_init_1','down_H');
+    'weighting_patch_cal_time', 'shift_x', 'shift_y', 'down_H', 'c_low');
+poolobj = gcp('nocreate'); delete(poolobj);
 
 DisRag_mx_SS = max(c_low, [], 'all'); DisRag_mi_SS = min(c_low, [], 'all');
 DisRag_mx_3D = max(c_init, [], 'all'); DisRag_mi_3D = min(c_init, [], 'all');
